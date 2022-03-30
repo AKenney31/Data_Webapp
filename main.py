@@ -109,7 +109,8 @@ if st.checkbox("Show Histogram"):
     if 'Player' in col_options:
         col_options.remove('Player')
     column = st.selectbox("Select Statistic For Histogram", col_options)
-    n_bins = st.slider("Number of bins", min_value=5, max_value=40)
+    mv = 40 if data[column].max() > 40 else data[column].max()
+    n_bins = st.slider("Number of bins", min_value=5, max_value=int(mv))
     bins = list(range(0, data[column].max(), int(data[column].max() / n_bins)))
     plt.figure(figsize=(8, 4))
     plt.hist(data[column], bins=bins)
